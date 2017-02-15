@@ -58,6 +58,13 @@ export default {
       {test: /\.(jpe?g|png|gif)$/i, loader: 'file-loader?name=[name].[ext]'},
       {test: /\.ico$/, loader: 'file-loader?name=[name].[ext]'},
       {test: /(\.css|\.scss)$/, loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader', 'sass-loader?sourceMap']}
+    ],
+    loaders: [
+      {//added by Max for flexboxgrid
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/,
+      }
     ]
   }
 };
