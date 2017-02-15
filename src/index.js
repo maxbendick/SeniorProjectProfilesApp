@@ -1,35 +1,23 @@
-// Set up your application entry point here...
 import React from 'react';
 import {render} from 'react-dom';
-//import { Provider } from 'react-redux';
-//import { Router, browserHistory } from 'react-router';
-//import { syncHistoryWithStore } from 'react-router-redux';
-
-//import routes from './routes';
-//import configureStore from './store/configureStore';
-require('./favicon.ico'); // Tell webpack to load favicon.ico
-import './styles/styles.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
-
-//const store = configureStore();
-
-// Create an enhanced history that syncs navigation events with the store
-//const history = syncHistoryWithStore(browserHistory, store);
+require('./favicon.ico');
+import './styles/styles.scss';
 
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Flexbox from 'flexbox-react';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 const CardExampleWithAvatar = () => (
-  <Card>
-    <CardHeader
-      title="URL Avatar"
-      subtitle="Subtitle"
-      />
+  <Card style={{margin: "1%", minWidth: "100px"}}>
     <CardTitle title="Card title" subtitle="Card subtitle" />
     <CardText>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -44,37 +32,40 @@ const CardExampleWithAvatar = () => (
   </Card>
 );
 
-//import { Grid, Row, Col } from 'react-flexbox-grid';
-
-/*const HelloGrid = () => (
-  <Grid>
-	<Row>
-	  <Col xsOffset={11} xs={1}>Hello</Col>
-	  <Col xsOffset={10} xs={2}>My</Col>
-	  <Col xsOffset={9} xs={3}>Grid</Col>
-	</Row>
-  </Grid>
-);*/
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = () => (
   <MuiThemeProvider>
-	<div className="full-width">
-	  <div id="card1">
-		<CardExampleWithAvatar />
-	  </div>
-	  <div id="card2">
-		<CardExampleWithAvatar />
-	  </div>
+	<div>
+      <AppBar
+		title="Worm Files"
+	    />
+	  <h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
+	  <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+	  
+	  <Flexbox flexDirection="row">
+	    <Flexbox>
+	      <CardExampleWithAvatar />
+	    </Flexbox>
+	    <Flexbox>
+	      <CardExampleWithAvatar />
+	    </Flexbox>
+	  </Flexbox>
+
+	  <Flexbox flexDirection="row">
+	    <Flexbox flexGrow={4}>
+	      <CardExampleWithAvatar />
+	    </Flexbox>
+	    <Flexbox flexGrow={2}>
+	      <CardExampleWithAvatar />
+	    </Flexbox>
+	  </Flexbox>
+
 	</div>
+
   </MuiThemeProvider>
 );
 
 render(
-  /*<Provider store={store}>
-    <Router history={history} routes={routes} />
-  </Provider>*/
   <App />,
   document.getElementById('app')
 );
