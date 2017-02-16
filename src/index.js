@@ -12,6 +12,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
 
+import { twitterCard } from './components/twitter-card';
+import { Timeline } from 'react-twitter-widgets';
+
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -65,60 +68,52 @@ const cards = [
 	)),
 	wrapCard("Hobbies", "The person's hobbies", <div>hello card</div>),
 	wrapCard("Personality", "What's... the deal... with INTJs?!", <div>hello card</div>),
-	wrapCard("Connections", "Who the person knows", <div>hello card</div>)
+	wrapCard("Connections", "Who the person knows", <div>hello card</div>),
+	twitterCard("potus")
 ]
 
 const App = () => (
-  <MuiThemeProvider>
-	<div>
-      <AppBar
-		title="Worm Files"
-	    />
-	  <Flexbox flexDirection="row">
-		  <Flexbox flexGrow={1}>
-		  </Flexbox>
-		  <Flexbox>
-
-
-		<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
-	<div style={{minWidth: "900px"}}>
-
-		<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
-		<h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
-		
+<MuiThemeProvider>
+	<div style={{marginBottom: "20px"}}>
+		<AppBar title="Worm Files"/>
 		<Flexbox flexDirection="row">
-			<Flexbox flexGrow={1}>
-			{cards[0]}
+			<Flexbox flexGrow={1} />  {/* to keep content centered */}
+
+			<Flexbox> {/* Profile information */}
+				<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
+					<div style={{minWidth: "900px"}}>
+						<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
+						<h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+
+						<Flexbox flexDirection="row"> {/* First row of cards */}
+							<Flexbox flexGrow={1}>
+								{cards[0]}
+							</Flexbox>
+							<Flexbox flexGrow={2}>
+								{cards[1]}
+							</Flexbox>
+						</Flexbox>
+
+						<Flexbox flexDirection="row"> {/* Second row of cards */}
+							<Flexbox flexGrow={1}>
+								{cards[2]}
+							</Flexbox>
+							<Flexbox flexGrow={1}>
+								{cards[3]}
+							</Flexbox>
+							<Flexbox>
+								{cards[4]}
+							</Flexbox>
+						</Flexbox>
+						
+					</div>
+				</Paper>
 			</Flexbox>
-			<Flexbox flexGrow={2}>
-			{cards[1]}
-			</Flexbox>
+
+			<Flexbox flexGrow={1} />  {/* to keep content centered */}
 		</Flexbox>
-
-		<Flexbox flexDirection="row">
-			<Flexbox flexGrow={1}>
-			{cards[2]}
-			</Flexbox>
-			<Flexbox flexGrow={1}>
-			{cards[3]}
-			</Flexbox>
-		</Flexbox>
-
-	  </div>
-	  </Paper>
-
-
-
-		  </Flexbox>
-		  <Flexbox flexGrow={1}>
-		  </Flexbox>
-	   </Flexbox>
-
-	  
-
 	</div>
-
-  </MuiThemeProvider>
+</MuiThemeProvider>
 );
 
 render(
