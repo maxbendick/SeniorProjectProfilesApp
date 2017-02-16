@@ -14,26 +14,13 @@ import Flexbox from 'flexbox-react';
 
 import { twitterCard } from './components/twitter-card';
 import { Timeline } from 'react-twitter-widgets';
+import 'whatwg-fetch';
+
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const CardExampleWithAvatar = () => (
-  <Card style={{margin: "1%", minWidth: "100px"}}>
-    <CardTitle title="Card title" subtitle="Card subtitle" />
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    </CardText>
-    <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
-    </CardActions>
-  </Card>
-);
 
 const wrapCard = (title, subtitle, cardInnerJSX) => (
   <Card style={{margin: "10px", width: "100%"}}>
@@ -79,13 +66,19 @@ const App = () => (
 		<Flexbox flexDirection="row">
 			<Flexbox flexGrow={1} />  {/* to keep content centered */}
 
-			<Flexbox> {/* Profile information */}
+			<Flexbox>
 				<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
 					<div style={{minWidth: "900px"}}>
-						<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
-						<h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+					 	
+					  {/* Profile information */}
+						<div id='profile-header' style={{paddingTop: "20px"}}>
+							<img width='100px' src='https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg' />
+							<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
+							<h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+						</div>
 
-						<Flexbox flexDirection="row"> {/* First row of cards */}
+						{/* First row of cards */}
+						<Flexbox flexDirection="row">
 							<Flexbox flexGrow={1}>
 								{cards[0]}
 							</Flexbox>
@@ -94,7 +87,8 @@ const App = () => (
 							</Flexbox>
 						</Flexbox>
 
-						<Flexbox flexDirection="row"> {/* Second row of cards */}
+						{/* Second row of cards */}
+						<Flexbox flexDirection="row">
 							<Flexbox flexGrow={1}>
 								{cards[2]}
 							</Flexbox>
