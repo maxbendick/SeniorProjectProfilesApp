@@ -1,0 +1,78 @@
+{
+  "firstName": "David",
+  "lastName": "Cornella",
+  "email": "david.cornella@google.com",
+  "phone": 5551231234,
+  "title": "CEO",
+  "company": "Google",
+  "pictureURL": "https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg",
+  "workHistory": [
+      {
+          "company": "Adobe",
+          "title": "ERC Generalist Intern",
+          "startDate": {
+              "day": 1,
+              "month": 6,
+              "year": 2016
+          },
+          "endDate": {
+              "day": 1,
+              "month": 10,
+              "year": 2016
+          },
+          "description": ""
+      },
+      {
+          "company": "Adobe",
+          "title": "ERC Generalist Intern",
+          "startDate": {
+              "day": 1,
+              "month": 6,
+              "year": 2016
+          },
+          "endDate": {
+              "day": 1,
+              "month": 10,
+              "year": 2016
+          },
+          "description": ""
+      }
+  ],
+  "educationHistory": [
+      {
+          "school": "Cal Poly",
+          "fieldOfStudy": "Business, Entreprenuership",
+          "degree": "B.S.",
+          "startDate": {
+              "day": "",
+              "month": 9,
+              "year": 2013
+          },
+          "endDate": {
+              "day": "",
+              "month": 6,
+              "year": 2017
+          }
+      }
+  ],
+  "hobbies": ["bowling", "hiking", "nanotechnology"],
+  "twitterHandle": "potus",
+  "linkedInURL": "https://www.linkedin.com/in/david-cornella-95b868b1",
+  "facebookURL": "https://www.facebook.com/david.cornella",
+  "newsArticles": [
+      {
+          "title": "David Cornella to be new Google CEO",
+          "url": "<insert link here>"
+      },
+      {
+          "title": "Other news about David",
+          "url": "<insert link here>"
+      }
+  ],
+  "volunteering": [
+      "organization one",
+      "organization two",
+      "organization three"
+  ]
+  
+}   
