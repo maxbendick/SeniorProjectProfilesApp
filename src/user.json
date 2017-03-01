@@ -23,17 +23,17 @@
           "description": ""
       },
       {
-          "company": "Adobe",
-          "title": "ERC Generalist Intern",
+          "company": "Cal Poly",
+          "title": "Student Assistant Advisor",
           "startDate": {
               "day": 1,
               "month": 6,
-              "year": 2016
+              "year": 2015
           },
           "endDate": {
-              "day": 1,
+              "day": 6,
               "month": 10,
-              "year": 2016
+              "year": 2017
           },
           "description": ""
       }
@@ -55,7 +55,7 @@
           }
       }
   ],
-  "hobbies": ["bowling", "hiking", "nanotechnology"],
+  "hobbies": ["bowling", "hiking", "sailing"],
   "twitterHandle": "potus",
   "linkedInURL": "https://www.linkedin.com/in/david-cornella-95b868b1",
   "facebookURL": "https://www.facebook.com/david.cornella",
@@ -73,6 +73,12 @@
       "organization one",
       "organization two",
       "organization three"
-  ]
-  
+  ],
+  "personality": {
+      "mbti": {
+          "type": "enfj",
+          "description": "ENFJs are natural-born leaders, full of passion and charisma. Forming around two percent of the population, they are oftentimes our politicians, our coaches and our teachers, reaching out and inspiring others to achieve and to do good in the world. With a natural confidence that begets influence, ENFJs take a great deal of pride and joy in guiding others to work together to improve themselves and their community."
+      }
+  },
+  "connections": ["Max Bendick", "Krissy Witous", "Jose Cabrera", "Nick Sinai"]
 }   
