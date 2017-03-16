@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
 
-import { twitterCard } from './components/twitter-card';
+import { twitterCard, AsyncTwitter } from './components/twitter-card';
 import { Timeline } from 'react-twitter-widgets';
 import 'whatwg-fetch';
 
@@ -56,7 +56,7 @@ const cards = [
 	wrapCard("Hobbies", "The person's hobbies", <div>hello card</div>),
 	wrapCard("Personality", "What's... the deal... with INTJs?!", <div>hello card</div>),
 	wrapCard("Connections", "Who the person knows", <div>hello card</div>),
-	twitterCard("potus")
+	<AsyncTwitter></AsyncTwitter> //twitterCard("potus")
 ]
 
 const App = () => (
