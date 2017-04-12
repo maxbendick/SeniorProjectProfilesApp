@@ -5,20 +5,24 @@ import './styles/styles.scss';
 
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
 
-import { twitterCard, AsyncTwitter } from './components/twitter-card';
-import { Timeline } from 'react-twitter-widgets';
+import { twitterCard, AsyncTwitter } from './components/infocards/twitter-card';
+// import { Timeline } from 'react-twitter-widgets';
 import 'whatwg-fetch';
 
-import { profile } from './components/profile';
+// import { profile } from './components/profile';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+/*
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -45,6 +49,7 @@ class App extends React.Component {
 		);
 	}
 }
+*/
 
 const wrapCard = (title, subtitle, cardInnerJSX) => (
   <Card style={{margin: "10px", width: "100%"}}>
@@ -80,7 +85,7 @@ const cards = [
 	wrapCard("Hobbies", "The person's hobbies", <div>hello card</div>),
 	wrapCard("Personality", "What's... the deal... with INTJs?!", <div>hello card</div>),
 	wrapCard("Connections", "Who the person knows", <div>hello card</div>),
-	<AsyncTwitter></AsyncTwitter> //twitterCard("potus")
+	twitterCard("potus") //<AsyncTwitter></AsyncTwitter>
 ]
 
 const App = () => (
@@ -92,9 +97,8 @@ const App = () => (
 
 			<Flexbox>
 				<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
-					<div style={{minWidth: "900px"}}>
-					 	
-					  {/* Profile information */}
+					<div style={{minWidth: "900px"}}>					 	
+					{/* Profile information */}
 						<div id='profile-header' style={{paddingTop: "20px"}}>
 							<img width='100px' src='https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg' />
 							<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
@@ -138,4 +142,3 @@ render(
   <App />,
   document.getElementById('app')
 );
-
