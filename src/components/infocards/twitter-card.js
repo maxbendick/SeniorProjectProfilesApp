@@ -22,10 +22,10 @@ export const twitterCard = (twitterUser) => (
     />
 );
 
-const profilePromise = fetch("http://senior-project-profiles-server-dev.us-east-1.elasticbeanstalk.com/profile/6")
+/*const profilePromise = fetch("http://senior-project-profiles-server-dev.us-east-1.elasticbeanstalk.com/profile/6")
 .then(function(response) {
 	return response.json()
-});
+});*/
 
 export class AsyncTwitter extends React.Component {
 
@@ -37,10 +37,11 @@ export class AsyncTwitter extends React.Component {
     }
 
     componentDidMount() {
-        profilePromise.then(profile => {
+        this.setState({twitterHandle: 'potus'});
+        /*profilePromise.then(profile => {
             console.log(profile);
             this.setState({twitterHandle: profile['twitter-handle']});
-        });
+        });*/
     }
 
     render() {

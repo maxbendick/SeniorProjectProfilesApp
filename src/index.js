@@ -14,7 +14,7 @@ import Flexbox from 'flexbox-react';
 
 import { twitterCard, AsyncTwitter } from './components/infocards/twitter-card';
 // import { Timeline } from 'react-twitter-widgets';
-import 'whatwg-fetch';
+//import 'whatwg-fetch';
 
 // import { profile } from './components/profile';
 
@@ -88,24 +88,24 @@ const cards = [
 	twitterCard("potus") //<AsyncTwitter></AsyncTwitter>
 ]
 
-const App = () => (
+/*const App = () => (
 <MuiThemeProvider>
 	<div style={{marginBottom: "20px"}}>
 		<AppBar title="Worm Files"/>
 		<Flexbox flexDirection="row">
-			<Flexbox flexGrow={1} />  {/* to keep content centered */}
+			<Flexbox flexGrow={1} />  {/* to keep content centered *}
 
 			<Flexbox>
 				<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
 					<div style={{minWidth: "900px"}}>					 	
-					{/* Profile information */}
+					{/* Profile information *}
 						<div id='profile-header' style={{paddingTop: "20px"}}>
 							<img width='100px' src='https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg' />
 							<h1 style={{padding: "1%", display: "inline-block"}}>David Cornella</h1>
 							<h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
 						</div>
 
-						{/* First row of cards */}
+						{/* First row of cards *}
 						<Flexbox flexDirection="row">
 							<Flexbox flexGrow={1}>
 								{cards[0]}
@@ -115,7 +115,7 @@ const App = () => (
 							</Flexbox>
 						</Flexbox>
 
-						{/* Second row of cards */}
+						{/* Second row of cards *}
 						<Flexbox flexDirection="row">
 							<Flexbox flexGrow={1}>
 								{cards[2]}
@@ -132,11 +132,129 @@ const App = () => (
 				</Paper>
 			</Flexbox>
 
+			<Flexbox flexGrow={1} />  {/* to keep content centered *}
+		</Flexbox>
+	</div>
+</MuiThemeProvider>
+);*/
+
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {profile: null}
+    }
+
+    componentDidMount() {
+
+        const compile = extendedMarkdown => { console.error("Not implemented - talk to Max"); return {
+            right: {
+                name: "David",
+                currentPosition: "CEO",
+                currentCompany: "Google",
+                pictureUrl: "string",
+                twitter: "potus", 
+                cards: [{
+                    title: "Card Title 1",
+                    content: "#markdown string 1\n * bullet 1\n * bullet 2\n * bullet 3"
+                },
+                {
+                    title: "Card Title 2",
+                    content: "#markdown string 2\n * bullet 1\n * bullet 2\n * bullet 3"
+                },
+                {
+                    title: "Card Title 3",
+                    content: "#markdown string 3\n * bullet 1\n * bullet 2\n * bullet 3"
+                },
+                {
+                    title: "Card Title 4",
+                    content: "#markdown string 4\n * bullet 1\n * bullet 2\n * bullet 3"
+                },
+                {
+                    title: "Card Title 5",
+                    content: "#markdown string 5\n * bullet 1\n * bullet 2\n * bullet 3"
+                },
+                {
+                    title: "Card Title 6",
+                    content: "#markdown string 6\n * bullet 1\n * bullet 2\n * bullet 3"
+                }]
+            }
+        }}
+
+        Promise.resolve({asdf:"asdf"})
+        //fetch("our url -- change this")
+        //.then(r => r.json())
+        .then(json => { console.error('Talk to Logan to get the url'); return json; })
+        .then(compile)
+        .then(profile => {
+            this.setState({profile: profile})
+        })
+    }
+
+    renderLoading() {
+        return <div>Loading</div>
+    }
+
+    renderLoadedProfile() {
+        return (<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
+            <div style={{minWidth: "900px"}}>					 	
+            {/* Profile information */}
+                <div id='profile-header' style={{paddingTop: "20px"}}>
+                    <img width='100px' src='https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg' />
+                    <h1 style={{padding: "1%", display: "inline-block"}}>{this.state.profile.right.name}</h1>
+                    <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+                </div>
+
+                {/* First row of cards */}
+                <Flexbox flexDirection="row">
+                    <Flexbox flexGrow={1}>
+                        {wrapCard(this.state.profile.right.cards[0].title, "", this.state.profile.right.cards[0].content) /*cards[0]*/}
+                    </Flexbox>
+                    <Flexbox flexGrow={2}>
+                        {cards[1]}
+                    </Flexbox>
+                </Flexbox>
+
+                {/* Second row of cards */}
+                <Flexbox flexDirection="row">
+                    <Flexbox flexGrow={1}>
+                        {cards[2]}
+                    </Flexbox>
+                    <Flexbox flexGrow={1}>
+                        {cards[3]}
+                    </Flexbox>
+                    <Flexbox>
+                        {cards[4]}
+                    </Flexbox>
+                </Flexbox>
+                
+            </div>
+        </Paper>)
+    }
+
+    render() {
+        return (
+            <MuiThemeProvider>
+	<div style={{marginBottom: "20px"}}>
+		<AppBar title="Worm Files"/>
+		<Flexbox flexDirection="row">
+			<Flexbox flexGrow={1} />  {/* to keep content centered */}
+
+			<Flexbox>
+                {
+                    this.state.profile && this.state.profile.right
+                        ? this.renderLoadedProfile()
+                        : this.renderLoading()
+                }
+				
+			</Flexbox>
+
 			<Flexbox flexGrow={1} />  {/* to keep content centered */}
 		</Flexbox>
 	</div>
 </MuiThemeProvider>
-);
+        )
+    }
+}
 
 render(
   <App />,
