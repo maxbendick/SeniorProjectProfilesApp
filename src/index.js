@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import {render} from 'react-dom';
 require('./favicon.ico');
 import './styles/styles.scss';
@@ -55,12 +56,19 @@ const wrapCard = (title, subtitle, cardInnerJSX) => (
   <Card style={{margin: "10px", width: "100%"}}>
     <CardTitle title={title} subtitle={subtitle} />
     <CardText>
-      {cardInnerJSX}
+		{cardInnerJSX}
     </CardText>
-    <CardActions>
+    /*<CardActions>
       <FlatButton label="Action1" />
       <FlatButton label="Action2" />
-    </CardActions>
+    </CardActions>*/
+  </Card>
+);
+
+const wrapCardRM = (title, subtitle, markdown) => (
+  <Card style={{margin: "10px", width: "100%"}}>
+    <CardTitle title={title} subtitle={subtitle} /> 
+	<ReactMarkdown source={markdown} />
   </Card>
 );
 
@@ -82,9 +90,9 @@ const cards = [
 			</ul>
 		</div>
 	)),
-	wrapCard("Hobbies", "The person's hobbies", <div>hello card</div>),
-	wrapCard("Personality", "What's... the deal... with INTJs?!", <div>hello card</div>),
-	wrapCard("Connections", "Who the person knows", <div>hello card</div>),
+	//wrapCard("Hobbies", "The person's hobbies", <div>hello card</div>),
+	//wrapCard("Personality", "What's... the deal... with INTJs?!", <div>hello card</div>),
+	//wrapCard("Connections", "Who the person knows", <div>hello card</div>),
 	twitterCard("potus") //<AsyncTwitter></AsyncTwitter>
 ]
 
@@ -151,31 +159,31 @@ class App extends React.Component {
                 name: "David",
                 currentPosition: "CEO",
                 currentCompany: "Google",
-                pictureUrl: "string",
+                pictureUrl: "https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg",
                 twitter: "potus", 
                 cards: [{
                     title: "Card Title 1",
-                    content: "#markdown string 1\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 11\n * bullet 2\n * bullet 3"
                 },
                 {
                     title: "Card Title 2",
-                    content: "#markdown string 2\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 12\n * bullet 2\n * bullet 3"
                 },
                 {
                     title: "Card Title 3",
-                    content: "#markdown string 3\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 13\n * bullet 2\n * bullet 3"
                 },
                 {
                     title: "Card Title 4",
-                    content: "#markdown string 4\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 14\n * bullet 2\n * bullet 3"
                 },
                 {
                     title: "Card Title 5",
-                    content: "#markdown string 5\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 15\n * bullet 2\n * bullet 3"
                 },
                 {
                     title: "Card Title 6",
-                    content: "#markdown string 6\n * bullet 1\n * bullet 2\n * bullet 3"
+                    content: "* bullet 16\n * bullet 2\n * bullet 3"
                 }]
             }
         }}
@@ -195,26 +203,48 @@ class App extends React.Component {
     }
 
     renderLoadedProfile() {
+		var React = require('react');
+		var ReactMarkdown = require('react-markdown');
+	
         return (<Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
             <div style={{minWidth: "900px"}}>					 	
             {/* Profile information */}
                 <div id='profile-header' style={{paddingTop: "20px"}}>
-                    <img width='100px' src='https://media.licdn.com/media/AAEAAQAAAAAAAAmEAAAAJDNjMDVmNzdkLTlmYWYtNGU1OC1hNjUwLWQ2MmQ4OWY1ZTY2OQ.jpg' />
+                    <img width='100px' src={this.state.profile.right.pictureUrl} />
                     <h1 style={{padding: "1%", display: "inline-block"}}>{this.state.profile.right.name}</h1>
-                    <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>CEO at Google</h2>
+                    <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>
+						{this.state.profile.right.currentPosition} at {this.state.profile.right.currentCompany}</h2>
                 </div>
 
                 {/* First row of cards */}
-                <Flexbox flexDirection="row">
-                    <Flexbox flexGrow={1}>
-                        {wrapCard(this.state.profile.right.cards[0].title, "", this.state.profile.right.cards[0].content) /*cards[0]*/}
+                <Flexbox flexDirection="column">                    
+
+					<Flexbox flexGrow={1}>
+						{wrapCardRM(this.state.profile.right.cards[0].title, "", this.state.profile.right.cards[0].content)}
+					</Flexbox>
+					<Flexbox flexGrow={2}>
+                        {wrapCardRM(this.state.profile.right.cards[1].title, "", this.state.profile.right.cards[1].content)}
                     </Flexbox>
-                    <Flexbox flexGrow={2}>
-                        {cards[1]}
+					<Flexbox flexGrow={3}>
+                        {wrapCardRM(this.state.profile.right.cards[2].title, "", this.state.profile.right.cards[2].content)}
                     </Flexbox>
+					<Flexbox flexGrow={4}>
+                        {wrapCardRM(this.state.profile.right.cards[3].title, "", this.state.profile.right.cards[3].content)}
+                    </Flexbox>
+					<Flexbox flexGrow={5}>
+                        {wrapCardRM(this.state.profile.right.cards[4].title, "", this.state.profile.right.cards[4].content)}
+                    </Flexbox>
+					<Flexbox flexGrow={6}>
+                        {wrapCardRM(this.state.profile.right.cards[5].title, "", this.state.profile.right.cards[5].content)}
+                    </Flexbox>
+					
+					//<Flexbox flexGrow={2}>
+                    //   {cards[1]}
+                    //</Flexbox>
                 </Flexbox>
 
-                {/* Second row of cards */}
+                {/*Second row of cards*/}
+				/*
                 <Flexbox flexDirection="row">
                     <Flexbox flexGrow={1}>
                         {cards[2]}
@@ -226,6 +256,7 @@ class App extends React.Component {
                         {cards[4]}
                     </Flexbox>
                 </Flexbox>
+				*/
                 
             </div>
         </Paper>)
@@ -234,24 +265,21 @@ class App extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-	<div style={{marginBottom: "20px"}}>
-		<AppBar title="Worm Files"/>
-		<Flexbox flexDirection="row">
-			<Flexbox flexGrow={1} />  {/* to keep content centered */}
-
-			<Flexbox>
-                {
-                    this.state.profile && this.state.profile.right
-                        ? this.renderLoadedProfile()
-                        : this.renderLoading()
-                }
-				
-			</Flexbox>
-
-			<Flexbox flexGrow={1} />  {/* to keep content centered */}
-		</Flexbox>
-	</div>
-</MuiThemeProvider>
+				<div style={{marginBottom: "20px"}}>
+					<AppBar title="Worm Files"/>
+					<Flexbox flexDirection="row">
+						<Flexbox flexGrow={1} />  {/* to keep content centered */}
+					<Flexbox>
+					{
+						this.state.profile && this.state.profile.right
+							? this.renderLoadedProfile()
+							: this.renderLoading()
+					}
+					</Flexbox>
+						<Flexbox flexGrow={1} />  {/* to keep content centered */}
+					</Flexbox>
+				</div>
+			</MuiThemeProvider>
         )
     }
 }
