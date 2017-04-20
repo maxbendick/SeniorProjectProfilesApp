@@ -7,7 +7,6 @@
 	* ```git clone https://github.com/maxbendick/SeniorProjectProfilesApp.git```
 * From inside the source directory, run:
 	* ```npm install```
-	* ```npm install --save react-markdown``` to add react-markdown rendering 
 	* ```npm start -s``` to start the app on http://localhost:3000/
 
 ---
