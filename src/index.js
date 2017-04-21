@@ -58,10 +58,10 @@ const wrapCard = (title, subtitle, cardInnerJSX) => (
     <CardText>
 		{cardInnerJSX}
     </CardText>
-    /*<CardActions>
+    {/*<CardActions>
       <FlatButton label="Action1" />
       <FlatButton label="Action2" />
-    </CardActions>*/
+    </CardActions>*/}
   </Card>
 );
 
@@ -150,9 +150,11 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {profile: null}
+		this.list;
     }
 
-    componentDidMount() {
+	
+    /*componentDidMount() {
 
         const compile = extendedMarkdown => { console.error("Not implemented - talk to Max"); return {
             right: {
@@ -187,6 +189,7 @@ class App extends React.Component {
                 }]
             }
         }}
+		
 
         Promise.resolve({asdf:"asdf"})
         //fetch("our url -- change this")
@@ -196,11 +199,21 @@ class App extends React.Component {
         .then(profile => {
             this.setState({profile: profile})
         })
-    }
+    } */
 
     renderLoading() {
         return <div>Loading</div>
     }
+
+	createRows(cards) {
+		var output = [];
+        for(var i = 0; i < cards.length; i++) {
+		output.push(<Flexbox flexGrow={i+1}>
+				{wrapCardRM(this.state.profile.right.cards[i].title, "", this.state.profile.right.cards[i].content)}
+			</Flexbox>);
+		}
+        return output;
+	}
 
     renderLoadedProfile() {
 		var React = require('react');
@@ -217,34 +230,14 @@ class App extends React.Component {
                 </div>
 
                 {/* First row of cards */}
-                <Flexbox flexDirection="column">                    
-
-					<Flexbox flexGrow={1}>
-						{wrapCardRM(this.state.profile.right.cards[0].title, "", this.state.profile.right.cards[0].content)}
-					</Flexbox>
-					<Flexbox flexGrow={2}>
-                        {wrapCardRM(this.state.profile.right.cards[1].title, "", this.state.profile.right.cards[1].content)}
-                    </Flexbox>
-					<Flexbox flexGrow={3}>
-                        {wrapCardRM(this.state.profile.right.cards[2].title, "", this.state.profile.right.cards[2].content)}
-                    </Flexbox>
-					<Flexbox flexGrow={4}>
-                        {wrapCardRM(this.state.profile.right.cards[3].title, "", this.state.profile.right.cards[3].content)}
-                    </Flexbox>
-					<Flexbox flexGrow={5}>
-                        {wrapCardRM(this.state.profile.right.cards[4].title, "", this.state.profile.right.cards[4].content)}
-                    </Flexbox>
-					<Flexbox flexGrow={6}>
-                        {wrapCardRM(this.state.profile.right.cards[5].title, "", this.state.profile.right.cards[5].content)}
-                    </Flexbox>
+                <Flexbox flexDirection="column">
+				
+					{this.createRows(this.state.profile.right.cards)}
 					
-					//<Flexbox flexGrow={2}>
-                    //   {cards[1]}
-                    //</Flexbox>
                 </Flexbox>
 
                 {/*Second row of cards*/}
-				/*
+				{/*
                 <Flexbox flexDirection="row">
                     <Flexbox flexGrow={1}>
                         {cards[2]}
@@ -256,7 +249,7 @@ class App extends React.Component {
                         {cards[4]}
                     </Flexbox>
                 </Flexbox>
-				*/
+				*/}
                 
             </div>
         </Paper>)
@@ -285,6 +278,6 @@ class App extends React.Component {
 }
 
 render(
-  <App />,
-  document.getElementById('app')
+	<App />,
+	document.getElementById('app')
 );
