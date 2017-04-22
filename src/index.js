@@ -102,7 +102,7 @@ class App extends React.Component {
         return (
             <Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
                 <div style={{minWidth: "900px"}}>					 	
-                {/* Profile information */}
+                    {/* Profile information */}
                     <div id='profile-header' style={{paddingTop: "20px"}}>
                         <img width='100px' src={profile.pictureUrl} />
                         <h1 style={{padding: "1%", display: "inline-block"}}>{profile.name}</h1>
