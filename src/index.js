@@ -4,6 +4,8 @@ import {render} from 'react-dom';
 require('./favicon.ico');
 import './styles/styles.scss';
 
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
@@ -18,31 +20,14 @@ import { twitterCard, AsyncTwitter } from './components/infocards/twitter-card';
 injectTapEventPlugin();
 
 
-const wrapCard = (title, markdown) =>
-  <Card style={{margin: "10px", width: "100%"}}>
-    <CardTitle title={title}  /> 
-	<ReactMarkdown source={markdown} />
-  </Card>
-
-
-const createRows = cards => cards.map(
-    (c,i) =>
-        <Flexbox flexGrow={i+1} key={i}>
-            {wrapCard(c.title, c.content)}
-        </Flexbox>)
-
-const renderLoading = () => <div>Loading</div>
-
-
-class App extends React.Component {
+class ProfileApp extends React.Component {
     constructor(props) {
         super(props)
         this.state = {profile: null}
     }
 
     componentDidMount() {
-
-        const compile = extendedMarkdown => { console.error("Not implemented - talk to Max"); return {
+        const compile = extendedMarkdown => { console.error("" + this.props.profileId + "Not implemented - talk to Max"); return {
             right: {
                 name: "Chris del Chris",
                 currentPosition: "Janitor",
@@ -75,7 +60,6 @@ class App extends React.Component {
                 }]
             }
         }}
-		
 
         Promise.resolve({asdf:"asdf"})
         .then(json => { console.error('Talk to Max to get the url'); return json; })
@@ -85,61 +69,84 @@ class App extends React.Component {
         })
     }
 
-    renderLoadedProfile() {
-
-        if (this.state.profile.left) {
-            console.error("Profile failed to load. Error was:", this.state.profile.left);
-            return <div>Profile failed to load</div>
-        }
-
-        const profile = this.state.profile.right;
-
-        const positionTitleJoiner = (profile.currentPosition && profile.currentPosition.length > 0
-                                    && profile.currentCompany && profile.currentCompany.length > 0)
-                                        ? "at"
-                                        : "";
-	
-        return (
-            <Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}}zDepth={2}>
-                <div style={{minWidth: "900px"}}>					 	
-                    {/* Profile information */}
-                    <div id='profile-header' style={{paddingTop: "20px"}}>
-                        <img width='100px' src={profile.pictureUrl} />
-                        <h1 style={{padding: "1%", display: "inline-block"}}>{profile.name}</h1>
-                        
-                        <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>
-                            {profile.currentPosition} {positionTitleJoiner} {profile.currentCompany}</h2>
-                    </div>
-
-                    {/* First row of cards */}
-                    <Flexbox flexDirection="column">
-                        {createRows(profile.cards)}
-                    </Flexbox>
-                </div>
-            </Paper>)
-    }
-
     render() {
-        return (
-            <MuiThemeProvider>
-				<div style={{marginBottom: "20px"}}>
-					<AppBar title="Vertible" iconElementLeft={<div></div>}/>
-					<Flexbox flexDirection="row">
-						<Flexbox flexGrow={1} />  {/* to keep content centered */}
-					<Flexbox>
-					{
-						this.state.profile && this.state.profile.right
-							? this.renderLoadedProfile()
-							: renderLoading()
-					}
-					</Flexbox>
-						<Flexbox flexGrow={1} />  {/* to keep content centered */}
-					</Flexbox>
-				</div>
-			</MuiThemeProvider>
-        )
+        return this.state.profile
+            ? (this.state.profile.right
+                ? <Profile profile={this.state.profile.right} />
+                : <ProfileError />)
+            : <ProfileLoading />
     }
 }
+
+
+const Profile = ({profile}) => {
+    const positionTitleJoiner = (profile.currentPosition && profile.currentPosition.length > 0
+                                && profile.currentCompany && profile.currentCompany.length > 0)
+                                    ? "at"
+                                    : "";
+    return (
+        <Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}} zDepth={2}>
+            <div style={{minWidth: "900px"}}>					 	
+                {/* Profile information */}
+                <div id='profile-header' style={{paddingTop: "20px"}}>
+                    <img width='100px' src={profile.pictureUrl} />
+                    <h1 style={{padding: "1%", display: "inline-block"}}>{profile.name}</h1>
+                    
+                    <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>
+                        {profile.currentPosition} {positionTitleJoiner} {profile.currentCompany}</h2>
+                </div>
+
+                {/* First row of cards */}
+                <Flexbox flexDirection="column">
+                    {/*createRows(profile.cards)*/}
+                    <CardList cards={profile.cards} />
+                </Flexbox>
+            </div>
+        </Paper>)
+}
+
+const MarkdownCard = ({title, markdown}) => (
+  <Card style={{margin: "10px", width: "100%"}}>
+    <CardTitle title={title}  /> 
+	<ReactMarkdown source={markdown} />
+  </Card>)
+
+const CardList = ({cards}) =>
+    <div>{
+        cards.map((c,i) =>
+            <Flexbox flexGrow={i+1} key={i}>
+                <MarkdownCard title={c.title} markdown={c.content} />
+            </Flexbox>)
+    }</div>
+
+const ProfileError = ({}) => <div>Profile failed to load</div>
+
+const ProfileLoading = ({}) => <div>Loading</div>
+
+const AppWrapper = ({children}) =>
+    <MuiThemeProvider>
+        <div style={{marginBottom: "20px"}}>
+            <AppBar title="Vertible" iconElementLeft={<div></div>}/>
+            <Flexbox flexDirection="row">
+                <Flexbox flexGrow={1} />  {/* to keep content centered */}
+            <Flexbox>
+            {
+                children
+            }
+            </Flexbox>
+                <Flexbox flexGrow={1} />  {/* to keep content centered */}
+            </Flexbox>
+        </div>
+    </MuiThemeProvider>
+
+const App = ({}) =>
+    <Router>
+        <AppWrapper>
+            <Route path="/:profileId" component={ProfileAppRouteAdapter} />
+        </AppWrapper>
+    </Router>
+
+const ProfileAppRouteAdapter = ({match}) => <ProfileApp profileId={match.params.profileId} />
 
 render(
 	<App />,
