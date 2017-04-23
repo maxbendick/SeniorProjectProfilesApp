@@ -142,7 +142,7 @@ const AppWrapper = ({children}) =>
 const App = ({}) =>
     <Router>
         <AppWrapper>
-            <Route path="/:profileId" component={ProfileAppRouteAdapter} />
+            <Route path="/app/:profileId" component={ProfileAppRouteAdapter} />
         </AppWrapper>
     </Router>
 
