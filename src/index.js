@@ -10,8 +10,7 @@ import {Card, CardTitle, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
+// Needed for onTouchTap http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 
@@ -40,25 +39,21 @@ class ProfileApp extends React.Component {
 
 
 const Profile = ({profile}) => {
-    const positionTitleJoiner = (profile.currentPosition && profile.currentPosition.length > 0
-                                && profile.currentCompany && profile.currentCompany.length > 0)
+    const positionTitleJoiner = (profile.position && profile.position.length > 0
+                                && profile.company && profile.company.length > 0)
                                     ? "at"
                                     : "";
     return (
         <Paper style={{marginTop: "20px", padding: "30px", paddingTop: "0px"}} zDepth={2}>
-            <div style={{minWidth: "900px"}}>					 	
-                {/* Profile information */}
+            <div style={{minWidth: "900px"}}>
                 <div id='profile-header' style={{paddingTop: "20px"}}>
                     <img width='100px' src={profile.pictureUrl} />
                     <h1 style={{padding: "1%", display: "inline-block"}}>{profile.name}</h1>
                     
                     <h2 style={{display: "inline-block", color: "#444", marginLeft: "10px"}}>
-                        {profile.currentPosition} {positionTitleJoiner} {profile.currentCompany}</h2>
+                        {profile.position} {positionTitleJoiner} {profile.company}</h2>
                 </div>
-
-                {/* First row of cards */}
                 <Flexbox flexDirection="column">
-                    {/*createRows(profile.cards)*/}
                     <CardList cards={profile.cards} />
                 </Flexbox>
             </div>
@@ -68,7 +63,7 @@ const Profile = ({profile}) => {
 const MarkdownCard = ({title, markdown}) => (
   <Card style={{margin: "10px", width: "100%"}}>
     <CardTitle title={title}  /> 
-	<ReactMarkdown source={markdown} />
+    <ReactMarkdown source={markdown} />
   </Card>)
 
 const CardList = ({cards}) =>
@@ -90,9 +85,7 @@ const AppWrapper = ({children}) =>
             <Flexbox flexDirection="row">
                 <Flexbox flexGrow={1} />  {/* to keep content centered */}
             <Flexbox>
-            {
-                children
-            }
+                {children}
             </Flexbox>
                 <Flexbox flexGrow={1} />  {/* to keep content centered */}
             </Flexbox>
