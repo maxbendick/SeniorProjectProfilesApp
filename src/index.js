@@ -63,7 +63,9 @@ const Profile = ({profile}) => {
 const MarkdownCard = ({title, markdown}) => (
   <Card style={{margin: "10px", width: "100%"}}>
     <CardTitle title={title}  /> 
-    <ReactMarkdown source={markdown} />
+    <div style={{padding: "16px"}}>
+        <ReactMarkdown source={markdown} />
+    </div>
   </Card>)
 
 const CardList = ({cards}) =>
