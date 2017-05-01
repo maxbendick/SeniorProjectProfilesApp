@@ -8,4 +8,4 @@ export const personalityCard = (name, personality) => {
             {personality.mbti.description}
         </div>
     );
-}
+};

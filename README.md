@@ -9,5 +9,10 @@
 	* ```npm install```
 	* ```npm start -s``` to start the app on http://localhost:3000/
 
+
+### How to run locally with the server side
+
+Follow the [instructions](https://github.com/maxbendick/senior-project-profiles-server/#testing-with-the-client-side) on the server side project. 
+
 ---
 Built on react-slingshot: https://github.com/coryhouse/react-slingshot

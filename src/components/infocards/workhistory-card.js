@@ -8,4 +8,4 @@ export const workHistoryCard = (workHistory) => {
                 <li key={index}>{wh.company} -- {wh.title} -- {wh.startDate.year} to {wh.endDate.year}</li>
             )}
         </ul>);
-}
+};

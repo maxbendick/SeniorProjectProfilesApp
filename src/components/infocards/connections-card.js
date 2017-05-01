@@ -12,4 +12,4 @@ export const connectionsCard = (connections) => {
             </ul>
         </div>
     );
-}
+};

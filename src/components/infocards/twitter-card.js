@@ -47,7 +47,7 @@ export class AsyncTwitter extends React.Component {
     render() {
         return this.state.twitterHandle
             ? twitterCard(this.state.twitterHandle)
-            : <div></div>
+            : <div></div>;
     }
 
 }
