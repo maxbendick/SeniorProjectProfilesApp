@@ -45,7 +45,7 @@ class ProfileApp extends React.Component {
 
 const MarkdownRow = ({title, markdown}) => (
   <div style={{display: "flex", flexDirection: "row", marginLeft: "50px", marginRight: "50px"}}>
-    <p style={{minWidth: "130px"}}>{title}</p>
+    <p style={{minWidth: "130px", color: "#9F9F9F"}}>{title}</p>
     <div style={{marginLeft: "20px", marginRight: "30px"}}>
         <ReactMarkdown source={markdown} />
     </div>
@@ -87,18 +87,13 @@ const Profile = ({profile}) => {
 };
 
 const ProfileHeader = ({profile}) => {
-    const positionTitleJoiner = (profile.position && profile.position.length > 0
-                                && profile.company && profile.company.length > 0)
-                                    ? "at"
-                                    : "";
     return (
         <Flexbox id="profile-header" flexDirection="row" alignItems="flex-start" style={{padding: "20px"}}>
             <img id="profile-img" style={{width: "100px", height: "100px", borderRadius: "50%", padding: "10px", paddingBottom: "0px", paddingTop: "0px"}} src={profile.pictureurl} />
             <Flexbox id="name-title" flexDirection="column" alignItems="flex-start">
-                <h1 style={{padding: "0px", paddingTop: "20px", margin: "0px"}}>{profile.name}</h1>    
-                <h2 style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#444"}}>
-                    {profile.position} {positionTitleJoiner} {profile.company}
-                </h2>
+                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555", fontSize: 24}}>{profile.name}</div>
+                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555"}}>{profile.position}</div>
+                <div style={{color: "#9F9F9F"}}>{profile.company}</div>
             </Flexbox>
         </Flexbox>
     );
