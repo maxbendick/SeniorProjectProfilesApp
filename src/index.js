@@ -11,6 +11,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
+import queryString from 'query-string';
 
 // Needed for onTouchTap http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -18,18 +19,32 @@ injectTapEventPlugin();
 
 class ProfileApp extends React.Component {
     constructor(props) {
-        super(props);
+        super(props); 
         this.state = {profile: null};
     }
 
     componentDidMount() {
-        fetch("/profile/" + this.props.profileId)
-        .then(r => r.json())
-        .then(profile => {
-            this.setState({profile: profile});
-        });
-        //const test_profile = {"right":{"name":"Julie Buckmeier","twitter":"N/A","position":"Clinical Affairs","company":"Beckman Coulter Inc.","pictureurl":"https://i1.rgstatic.net/ii/profile.image/AS%3A350447601766402%401460564627796_l/Julie_Buckmeier.png","cards":[{"title":"Company","content":"\nBeckman Coulter Diagnostics products produce information used by physicians to diagnose disease, make treatment decisions and monitor their patients.\n\n\nBeckman Coulter Life Sciences provides laboratory solutions to  universities, government, biotechnology and pharmaceutical companies, hospitals, and commercial laboratories.\n\n\n#### Stats\n* **Empl. Range**: > 10,000\n* **Empl. Revenue Range**: > 1B\n* **Founded**: 1935\n* **Company LinkedIn**: [www.linkedin.com/company/beckman-coulter](https://www.linkedin.com/company/beckman-coulter)\n"},{"title":"Recent Research Contributions","content":"\n* MicroRNA signatures of colonic adenomas according to histology\n* Selenium Supplementation for Prevention of Colorectal Adenomas and Risk of Associated Type 2 Diabetes\n* Celecoxib for the Prevention of Colorectal Adenomas: Results of a Suspended Randomized Controlled Trial \n\n\n**ResearchGate Profile**: [www.researchgate.net/profile/Julie_Buckmeier](https://www.researchgate.net/profile/Julie_Buckmeier)\n"}]}}
-        //this.setState({profile: test_profile})
+        ///*
+        if (this.props.googleProfile) {
+            fetch("/gprofile/" + this.props.profileId)
+            .then(r => r.json())
+            .then(profile => {
+                this.setState({profile: profile});
+            });
+        }
+        else {
+            fetch("/profile/" + location.search) //sends the whole search query 
+            .then(r => r.json())
+            .then(profile => {
+                this.setState({profile: profile});
+            });
+        }
+        //*/
+        // Comment above and uncomment below to test UI without the server
+        //const test_profile = {"right":{"name":"Bob Smith","company":"Workday","twitter":"potus"}};
+        //const test_profile = {"right":{"name":"Julie Buckmeier","twitter":"N/A","position":"Clinical Affairs","company":"Beckman Coulter Inc.","pictureurl":"https://i1.rgstatic.net/ii/profile.image/AS%3A350447601766402%401460564627796_l/Julie_Buckmeier.png","cards":[{"title":"Company","content":"\nBeckman Coulter Diagnostics products produce information used by physicians to diagnose disease, make treatment decisions and monitor their patients.\n\n\nBeckman Coulter Life Sciences provides laboratory solutions to  universities, government, biotechnology and pharmaceutical companies, hospitals, and commercial laboratories.\n\n\n#### Stats\n* **Empl. Range**: > 10,000\n* **Empl. Revenue Range**: > 1B\n* **Founded**: 1935\n* **Company LinkedIn**: [www.linkedin.com/company/beckman-coulter](https://www.linkedin.com/company/beckman-coulter)\n"},{"title":"Recent Research Contributions","content":"\n* MicroRNA signatures of colonic adenomas according to histology\n* Selenium Supplementation for Prevention of Colorectal Adenomas and Risk of Associated Type 2 Diabetes\n* Celecoxib for the Prevention of Colorectal Adenomas: Results of a Suspended Randomized Controlled Trial \n\n\n**ResearchGate Profile**: [www.researchgate.net/profile/Julie_Buckmeier](https://www.researchgate.net/profile/Julie_Buckmeier)\n"}]}};
+        //this.setState({profile: test_profile});
+        
     }
 
     render() {
@@ -69,9 +84,26 @@ export const CardList = ({cards}) => {
     );
 };
 
-const ProfileError = ({}) => <div>Profile failed to load</div>;
+const ProfileHeader = ({profile}) => {
+    return (
+        <Flexbox id="profile-header" flexDirection="row" alignItems="flex-start" style={{padding: "20px"}}>
+            {profile.pictureurl ? 
+                <img id="profile-img" style={{width: "100px", height: "100px", borderRadius: "50%", padding: "10px", paddingBottom: "0px", paddingTop: "0px"}} src={profile.pictureurl} />
+                :
+                <span/>
+            }
+            <Flexbox id="name-title" flexDirection="column" alignItems="flex-start">
+                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555", fontSize: 24}}>{profile.name}</div>
+                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555"}}>{profile.position}</div>
+                <div style={{color: "#9F9F9F"}}>{profile.company}</div>
+            </Flexbox>
+        </Flexbox>
+    );
+};
 
-const ProfileLoading = ({}) => <div>Loading...</div>;
+const ProfileError = ({}) => <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>Profile failed to load</div>;
+
+const ProfileLoading = ({}) => <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>Loading...</div>;
 
 const Profile = ({profile}) => {
     return (
@@ -80,23 +112,10 @@ const Profile = ({profile}) => {
                 <Flexbox flexDirection="column">
                     <ProfileHeader profile={profile}/>
                     <Divider />
-                    <CardList cards={profile.cards}/>
+                    {profile.cards !== undefined ? <CardList cards={profile.cards}/> : <span/>}
                 </Flexbox>
             </Paper>
         </Flexbox>);
-};
-
-const ProfileHeader = ({profile}) => {
-    return (
-        <Flexbox id="profile-header" flexDirection="row" alignItems="flex-start" style={{padding: "20px"}}>
-            <img id="profile-img" style={{width: "100px", height: "100px", borderRadius: "50%", padding: "10px", paddingBottom: "0px", paddingTop: "0px"}} src={profile.pictureurl} />
-            <Flexbox id="name-title" flexDirection="column" alignItems="flex-start">
-                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555", fontSize: 24}}>{profile.name}</div>
-                <div style={{padding: "0px", paddingTop: "10px", margin: "0px", color: "#555555"}}>{profile.position}</div>
-                <div style={{color: "#9F9F9F"}}>{profile.company}</div>
-            </Flexbox>
-        </Flexbox>
-    );
 };
 
 const AppWrapper = ({children}) =>
@@ -107,14 +126,25 @@ const AppWrapper = ({children}) =>
         </div>
     </MuiThemeProvider>;
 
+const ProfileAppRouteAdapter = (props) => {
+    return (
+        <ProfileApp params={queryString.parse(props.location.search)} googleProfile={false}/>
+    );
+}
+
+const GoogleProfileAppRouteAdapter = ({match}) => {
+    return (
+        <ProfileApp googleProfile={true} profileId={match.params.profileId}/>
+    );
+}
+
 const App = ({}) =>
     <Router>
         <AppWrapper>
-            <Route path="/app/profile/:profileId" component={ProfileAppRouteAdapter} />
+            <Route path="/app/profile" component={ProfileAppRouteAdapter} />
+            <Route path="/app/gprofile/:profileId" component={GoogleProfileAppRouteAdapter} />
         </AppWrapper>
     </Router>;
-
-const ProfileAppRouteAdapter = ({match}) => <ProfileApp profileId={match.params.profileId} />;
 
 render(
 	<App />,
