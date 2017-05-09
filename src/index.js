@@ -41,9 +41,9 @@ class ProfileApp extends React.Component {
         }
         //*/
         // Comment above and uncomment below to test UI without the server
-        //const test_profile = {"right":{"name":"Bob Smith","company":"Workday","twitter":"potus"}};
+        // const test_profile = {"right":{"name":"Bob Smith","company":"Workday","twitter":"potus"}};
         //const test_profile = {"right":{"name":"Julie Buckmeier","twitter":"N/A","position":"Clinical Affairs","company":"Beckman Coulter Inc.","pictureurl":"https://i1.rgstatic.net/ii/profile.image/AS%3A350447601766402%401460564627796_l/Julie_Buckmeier.png","cards":[{"title":"Company","content":"\nBeckman Coulter Diagnostics products produce information used by physicians to diagnose disease, make treatment decisions and monitor their patients.\n\n\nBeckman Coulter Life Sciences provides laboratory solutions to  universities, government, biotechnology and pharmaceutical companies, hospitals, and commercial laboratories.\n\n\n#### Stats\n* **Empl. Range**: > 10,000\n* **Empl. Revenue Range**: > 1B\n* **Founded**: 1935\n* **Company LinkedIn**: [www.linkedin.com/company/beckman-coulter](https://www.linkedin.com/company/beckman-coulter)\n"},{"title":"Recent Research Contributions","content":"\n* MicroRNA signatures of colonic adenomas according to histology\n* Selenium Supplementation for Prevention of Colorectal Adenomas and Risk of Associated Type 2 Diabetes\n* Celecoxib for the Prevention of Colorectal Adenomas: Results of a Suspended Randomized Controlled Trial \n\n\n**ResearchGate Profile**: [www.researchgate.net/profile/Julie_Buckmeier](https://www.researchgate.net/profile/Julie_Buckmeier)\n"}]}};
-        //this.setState({profile: test_profile});
+        // this.setState({profile: test_profile});
         
     }
 
@@ -126,10 +126,40 @@ const AppWrapper = ({children}) =>
         </div>
     </MuiThemeProvider>;
 
-const ProfileAppRouteAdapter = (props) => {
+// Begin Nick's Playground ****************************************************
+
+// Nick TODO: 
+// Update the component below to return a form that lets the user
+// type in the prospect name, company name, and twitter handle. Add a button
+// that, when clicked, goes to the proper URL to get the profile from the 
+// server. 
+
+// Currently the example below gets a profile for Mike Jones using the params
+// to form the URL query. You'll want to change it so that these params get 
+// their values from the user input.
+
+// To test your solution, just make sure that once the button gets clicked,
+// it sends the user to the right URL
+// (e.g. /app/profile/?name=Bob&company=Google&twitter=potus).
+
+const ProfileAppInputForm = (props) => {
+    const params = {name: "Mike Jones", company: "Amazon", twitter: "potus"};
+
+    const profileURL = "/app/profile/?" + queryString.stringify(params);
     return (
-        <ProfileApp params={queryString.parse(props.location.search)} googleProfile={false}/>
+        <div>
+            <a href={profileURL}>Get Profile</a> // replace this with the form stuff
+        </div>
     );
+}
+
+// End Nick's Playground ******************************************************
+
+const ProfileAppRouteAdapter = (props) => {
+    return props.location.search ? 
+    <ProfileApp params={queryString.parse(props.location.search)} googleProfile={false}/>
+    :
+    <ProfileAppInputForm />
 }
 
 const GoogleProfileAppRouteAdapter = ({match}) => {
