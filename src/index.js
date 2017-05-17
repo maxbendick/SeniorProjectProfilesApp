@@ -126,34 +126,37 @@ const AppWrapper = ({children}) =>
         </div>
     </MuiThemeProvider>;
 
-// Begin Nick's Playground ****************************************************
-
-// Nick TODO: 
-// Update the component below to return a form that lets the user
-// type in the prospect name, company name, and twitter handle. Add a button
-// that, when clicked, goes to the proper URL to get the profile from the 
-// server. 
-
-// Currently the example below gets a profile for Mike Jones using the params
-// to form the URL query. You'll want to change it so that these params get 
-// their values from the user input.
-
-// To test your solution, just make sure that once the button gets clicked,
-// it sends the user to the right URL
-// (e.g. /app/profile/?name=Bob&company=Google&twitter=potus).
-
 const ProfileAppInputForm = (props) => {
     const params = {name: "Mike Jones", company: "Amazon", twitter: "potus"};
-
     const profileURL = "/app/profile/?" + queryString.stringify(params);
     return (
-        <div>
-            <a href={profileURL}>Get Profile</a> // replace this with the form stuff
-        </div>
+        <Flexbox style={{justifyContent: "center"}}>
+            <Paper style={{maxWidth: "700px", marginTop: "20px", padding: "20px"}} zDepth={1}>
+                <Flexbox flexDirection="column">
+                    <h1>Get a Profile</h1>
+                    <Divider />
+                    <form style={{display: "flex", flexDirection: "column"}}>
+                        <label style={{display: "flex", flexDirection: "row", margin: "10px"}}>
+                            Name:
+                            <input type="text" name="name" autoFocus style={{flex: 1, marginLeft: "10px"}}/>
+                        </label>
+                        <label style={{display: "flex", flexDirection: "row", margin: "10px"}}>
+                            Company: 
+                            <input type="text" name="company" style={{flex: 1, marginLeft: "10px"}}/>
+                        </label>
+                        <label style={{display: "flex", flexDirection: "row", margin: "10px"}}>
+                            Twitter Handle: 
+                            <input type="text" name="twitter" style={{flex: 1, marginLeft: "10px"}}/>
+                        </label>
+                        <Flexbox flexDirection="row" justifyContent="flex-end">
+                            <input type="submit" value="Get Profile"  style={{width: "85px", margin: "10px", marginBottom: "0px"}}/>
+                        </Flexbox>
+                    </form>
+                </Flexbox>
+            </Paper>
+        </Flexbox>
     );
 }
-
-// End Nick's Playground ******************************************************
 
 const ProfileAppRouteAdapter = (props) => {
     return props.location.search ? 
