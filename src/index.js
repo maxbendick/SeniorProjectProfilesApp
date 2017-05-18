@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Flexbox from 'flexbox-react';
 import queryString from 'query-string';
+import wordLogo from '../images/vertible-word.png';
 
 // Needed for onTouchTap http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -121,7 +122,7 @@ const Profile = ({profile}) => {
 const AppWrapper = ({children}) =>
     <MuiThemeProvider>
         <div style={{marginBottom: "20px"}}>
-            <AppBar title="Vertible" iconElementLeft={<div></div>} style={{backgroundColor: "#4F98D7"}}/>
+            <AppBar title="" iconElementLeft={<img height="40px" src={wordLogo}/>} style={{backgroundColor: "#4F98D7"}}/>
             {children}
         </div>
     </MuiThemeProvider>;
