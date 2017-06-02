@@ -14,6 +14,70 @@ li {
 	margin-bottom: 5px;
 }
 
-p, h1, h2, h3, h4, li, strong, span {
+p, h1, h2, h3, h4, ul, li, strong, span {
 	color: #555555;
+}
+
+#sidebar {
+	height: calc(100vh - 50px);
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 200px;
+	background-color: #fff;
+}
+
+.menu-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+.menu-li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+.menu-li a:hover {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+}
+
+/* For the favorite star */
+/*input[type="checkbox"] {
+}
+
+input[type="checkbox"]:checked {
+    cursor:pointer;
+}
+*/
+
+.favtoggle {
+    display:inline-block;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+.favtoggle:before {
+    visibility: visible;
+    font-size: 40px;
+    content: "★"; //☆
+    color: #fff;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #000;
+
+}
+.favtoggle.favtoggle-star-empty:checked:before {
+    content: "★";
+    color: #ffff00;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #000;
+}
+input[type=checkbox].favtoggle{
+    visibility: hidden;   
 }
